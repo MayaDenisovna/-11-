@@ -1,0 +1,146 @@
+Мищенков Егор
+pt = tuple(map(int, input().split()))
+x, y, z = pt
+d = (x**2 + y**2 + z**2) ** 0.5
+print(round(d, 2))
+
+stud = {
+    'Иван': 'Математика',
+    'Анна': 'Физика',
+    'Петр': 'Математика'
+}
+subj = dict()
+for st, sb in stud.items():
+    if sb not in subj:
+        subj[sb] = []
+    subj[sb].append(st)
+print(subj)
+
+def valid(f):
+    def wrap(*args, **kw):
+        for v in args:
+            if v <= 0:
+                return "Ошибка: аргументы должны быть больше нуля"
+        for v in kw.values():
+            if v <= 0:
+                return "Ошибка: аргументы должны быть больше нуля"
+        return f(*args, **kw)
+    return wrap
+
+@valid
+def pr(a, b):
+    return a * b
+
+emps = [
+    {'name': 'Иван', 'dept': 'IT', 'salary': 120000},
+    {'name': 'werwr', 'dept': 'IT', 'salary': 1},
+    {'name': 'wwer', 'dept': 'IT', 'salary': 1},
+    {'name': 'werwr', 'dept': 'IT', 'salary': 1},
+]
+
+deps = dict()
+for em in emps:
+    dp = em['dept']
+    if dp not in deps:
+        deps[dp] = []
+    deps[dp].append(em['salary'])
+res = dict()
+for dp, sals in deps.items():
+    avg = sum(sals) / len(sals)
+    res[dp] = round(avg, 2)
+
+print(res)
+
+sets = [{1, 2, 3}, {2, 3, 4}, {4, 5, 6}]
+cnts = dict()
+for s in sets:
+    for el in s:
+        if el not in cnts:
+            cnts[el] = 0
+        cnts[el] += 1
+res = []
+for el, cnt in cnts.items():
+    if cnt == 1:
+        res.append(el)
+res.sort()
+print(res)
+
+def memo(f):
+    cash = dict()
+    def wrap(n):
+        if n not in cash:
+            cash[n] = f(n)
+        return cash[n]
+    return wrap
+
+@memo
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+
+def merge(d1, d2):
+    res = dict(d1)
+    for k, v in d2.items():
+        if k in res and isinstance(res[k], dict) and isinstance(v, dict):
+            res[k] = merge(res[k], v)
+        else:
+            res[k] = v
+    return res
+d1 = {'a': 1, 'b': {'x': 10, 'y': 20}}
+d2 = {'b': {'y': 30, 'z': 40}, 'c': 3}
+mrg = merge(d1, d2)
+print(mrg)
+
+def find(docs, tags):
+    t_set = set(tags)
+    match = set()
+    for d_id, d_tgs in docs.items():
+        if t_set.issubset(d_tgs):
+            match.add(d_id)
+    return match
+docs = {
+    1: {'python', 'backend', 'db'},
+    2: {'python', 'ai'},
+    3: {'backend', 'db'}
+}
+inp = "backend db"
+tgs = inp.split()
+res = find(docs, tgs)
+print(res)
+
+
+import time
+def prof(f):
+    def wrap(*args, **kw):
+        t0 = time.perf_counter()
+        res = f(*args, **kw)
+        t1 = time.perf_counter()
+        dt = t1 - t0
+        print({'execution_time_sec': dt})
+        return res
+    return wrap
+@prof
+def r_sum(n):
+    if n <= 1:
+        return n
+    return n + r_sum(n - 1)
+res = r_sum(10)
+print(res)
+
+
+cits = {
+    'Алиса': ('Боб', 'Чарли'),
+    'Боб': ('Чарли',),
+    'Чарли': ()
+}
+rev = dict()
+for aut in cits:
+    rev[aut] = set()
+for aut, cited in cits.items():
+    for c in cited:
+        if c not in rev:
+            rev[c] = set()
+        rev[c].add(aut)
+print(rev)
