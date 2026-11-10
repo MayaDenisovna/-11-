@@ -1,30 +1,55 @@
-class Acc:
-    def __init__(self, name, balance):
-        self._balance = balance
-        self.name = name
+# class Acc:
+#     def __init__(self, name, balance):
+#         self._balance = balance
+#         self.name = name
+# 
+#     def dep(self, a):
+#         if a <= 0:
+#             pass
+#         else:
+#             self._balance += a
+# 
+#     def pay(self, b):
+#         if self._balance - b <= 0:
+#             print("poor")
+#             pass
+#         else:
+#             self._balance -= b
+# 
+#     def info(self):
+#         print(f"name: {self.name}, balance: {self._balance}")
+# 
+#     def get_bal(self):
+#         print(self._balance)
+# 
+# account1 = Acc("Andrew", 500)
+# account1.dep(250)
+# account1.pay(300)
+# account1.dep(1000)
+# account1.dep(-50)
+# account1.get_bal()
 
-    def dep(self, a):
-        if a <= 0:
+
+class students:
+    def __init__(self,name,arr=[]):
+        self.name=name
+        self._arr=arr.copy()
+    def add_grade(self,grade):
+        if grade<2 or grade>5:
             pass
         else:
-            self._balance += a
-
-    def pay(self, b):
-        if self._balance - b <= 0:
-            print("poor")
+            self._arr.append(grade)
+    def get_grade(self):
+        for i in range(len(self._arr)):
+            print(self._arr[i], end=' ')
+    def get_average(self):
+        if len(self._arr)==0:
+            print(0)
             pass
         else:
-            self._balance -= b
-
-    def info(self):
-        print(f"name: {self.name}, balance: {self._balance}")
-
-    def get_bal(self):
-        print(self._balance)
-
-account1 = Acc("svt", 500)
-account1.dep(250)
-account1.pay(300)
-account1.dep(1000)
-account1.dep(-50)
-account1.get_bal()
+            s=0
+            for i in range(len(self._arr)):
+                s+=self._arr[i]
+            print(s/len(self._arr))
+    def
+                
