@@ -28,3 +28,34 @@ account1.pay(300)
 account1.dep(1000)
 account1.dep(-50)
 account1.get_bal()
+
+
+
+
+class students:
+    def __init__(self, name, arr = []):
+        self.name = name
+        self._arr = arr.copy()
+
+    def add_grade(self, grade):
+        if grade < 2 or grade > 5:
+            pass
+        else:
+            self._arr.append(grade)
+
+    def get_grades(self):
+        for i in range(len(self._arr)):
+            print(self._arr[i], end=" ")
+
+    def get_average(self):
+        if len(self._arr) == 0:
+            print(0)
+            pass
+        else:
+            s = 0
+            for i in range(len(self._arr)):
+                s += self._arr[i]
+            print(s / len(self._arr))
+    
+    def get_status(self):
+        
