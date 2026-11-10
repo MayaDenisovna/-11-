@@ -1,1 +1,30 @@
+class Acc:
+    def __init__(self, name, balance):
+        self._balance = balance
+        self.name = name
 
+    def dep(self, a):
+        if a <= 0:
+            pass
+        else:
+            self._balance += a
+
+    def pay(self, b):
+        if self._balance - b <= 0:
+            print("poor")
+            pass
+        else:
+            self._balance -= b
+
+    def info(self):
+        print(f"name: {self.name}, balance: {self._balance}")
+
+    def get_bal(self):
+        print(self._balance)
+
+account1 = Acc("svt", 500)
+account1.dep(250)
+account1.pay(300)
+account1.dep(1000)
+account1.dep(-50)
+account1.get_bal()
