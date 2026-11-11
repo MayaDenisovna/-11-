@@ -1,1 +1,43 @@
+# Задание 1
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self._grades = []
 
+    def add_grade(self, grade):
+        if grade < 2 or grade > 5:
+            pass
+        else:
+            self._grades.append(grade)
+
+    def get_grades(self):
+        print(self._grades.copy())
+
+    def get_average(self):
+        if not self._grades:
+            print(0)
+        else:
+            print(sum(self._grades) / len(self._grades))
+
+    def get_status(self):
+        avg = sum(self._grades) / len(self._grades) if self._grades else 0
+        if avg >= 4.5:
+            print("отличная успеваемость")
+        elif avg >= 3.5:
+            print("хорошая успеваемость")
+        else:
+            print("нужно подтянуть предмет")
+
+
+student1 = Student("savunty")
+student1.add_grade(5)
+student1.add_grade(4)
+student1.add_grade(3)
+student1.add_grade(5)
+student1.add_grade(7)
+student1.get_grades()
+student1.get_average()
+student1.get_status()
+
+
+# Задание 2
