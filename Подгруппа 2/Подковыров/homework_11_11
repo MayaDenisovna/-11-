@@ -41,3 +41,52 @@ student1.get_status()
 
 
 # Задание 2
+class GameCharacter:
+    def __init__(self, name, max_health, max_energy):
+        self.name = name
+        self._max_health = max_health
+        self._max_energy = max_energy
+        self._health = max_health
+        self._energy = max_energy
+
+    def take_damage(self, amount):
+        if amount <= 0:
+            pass
+        else:
+            self._health -= amount
+            if self._health < 0:
+                self._health = 0
+
+    def heal(self, amount):
+        if amount <= 0:
+            pass
+        else:
+            self._health += amount
+            if self._health > self._max_health:
+                self._health = self._max_health
+
+    def use_energy(self, amount):
+        if amount <= 0 or amount > self._energy:
+            pass
+        else:
+            self._energy -= amount
+
+    def restore_energy(self, amount):
+        if amount <= 0:
+            pass
+        else:
+            self._energy += amount
+            if self._energy > self._max_energy:
+                self._energy = self._max_energy
+
+    def show_status(self):
+        print(f"name: {self.name}, health: {self._health}, energy: {self._energy}")
+
+
+hero1 = GameCharacter("svt", 100, 50)
+hero1.take_damage(35)
+hero1.heal(20)
+hero1.use_energy(15)
+hero1.use_energy(100)
+hero1.restore_energy(100)
+hero1.show_status()
