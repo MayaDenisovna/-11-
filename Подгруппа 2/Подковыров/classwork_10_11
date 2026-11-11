@@ -1,3 +1,4 @@
+# Задание 1
 class Acc:
     def __init__(self, name, balance):
         self._balance = balance
@@ -31,7 +32,7 @@ account1.get_bal()
 
 
 
-
+# Задание 2
 class students:
     def __init__(self, name, arr = []):
         self.name = name
@@ -58,4 +59,22 @@ class students:
             print(s / len(self._arr))
     
     def get_status(self):
+        s = 0
+        for i in range(len(self._arr)):
+            s += self._arr[i]
+        avg = s / len(self._arr)
+        if avg >= 4.5:
+            print("great result")
+        elif avg >= 3.5 and avg < 4.5:
+            print("good result")
+        else:
+            print("bad result")
+
+student1 = Students('svt')
+student1.add_grade(5)
+student1.add_grade(3)
+student1.add_grade(5)
+student1.add_grade(4)
+student1.get_average()
+student1.get_status()
         
