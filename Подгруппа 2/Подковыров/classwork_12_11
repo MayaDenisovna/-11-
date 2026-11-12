@@ -1,0 +1,63 @@
+# Задание 1
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        print("Животное издаёт звук")
+
+
+class Cat(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name)
+        self.breed = breed
+    def speak(self):
+        print(f"{self.name} говорит: Мяу!")
+
+
+cat = Cat("кошка", "порода")
+
+print(cat.name)
+cat.speak()
+
+# Задание 2
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.__salary = salary
+
+    def get_raise(self):
+        self.__salary *= 1.1
+        print(f"{self.name}: новая зарплата {self.__salary:.0f}")
+
+
+class Manager(Employee):
+    def __init__(self, name, salary, department):
+        super().__init__(name, salary)
+        self.__department = department
+
+    def give_task(self, developer, task):
+        print(f"Менеджер {self.name} ({self.__department}) даёт задачу")
+        developer._receive_task(task)
+
+
+class Developer(Employee):
+    def __init__(self, name, salary, level):
+        super().__init__(name, salary)
+        self.__level = level
+        self.__task = None
+
+    def _receive_task(self, task):
+        self.__task = task
+        print(f"{self.name} получил задачу: {task}")
+
+    def _tell_about_self(self):
+        print(f"Я {self.name}, уровень {self.__level}, задача: {self.__task or 'нет'}")
+
+
+dev = Developer("Иван", 100000, "Middle")
+mgr = Manager("Анна", 150000, "IT")
+
+mgr.give_task(dev, "Написать API")
+dev._tell_about_self()
+dev.get_raise()
