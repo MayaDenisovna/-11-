@@ -1,0 +1,225 @@
+# Задание 1
+class Book:
+    def __init__(self, title, author, year):
+        self.title = title
+        self.author = author
+        self.year = year
+        self._available = True
+
+    def __str__(self):
+        status = "доступна" if self._available else "выдана"
+        return f"название: {self.title}, автор: {self.author}, год: {self.year}, статус: {status}"
+
+    def info(self):
+        print(str(self))
+
+    def is_available(self):
+        return self._available
+
+    def give_out(self):
+        if not self._available:
+            print(f'книга "{self.title}" уже выдана')
+            pass
+        else:
+            self._available = False
+            print(f'книга "{self.title}" выдана читателю')
+
+    def return_book(self):
+        if self._available:
+            print(f'книга "{self.title}" уже в библиотеке')
+            pass
+        else:
+            self._available = True
+            print(f'книга "{self.title}" возвращена')
+
+
+class Library:
+    def __init__(self, name):
+        self._name = name
+        self._books = []
+
+    def __str__(self):
+        lines = [f'каталог библиотеки "{self._name}":']
+        if not self._books:
+            lines.append("книг нет")
+        else:
+            for book in self._books:
+                lines.append(str(book))
+        return "\n".join(lines)
+
+    def add_book(self, book):
+        self._books.append(book)
+        print(f'книга "{book.title}" добавлена в библиотеку "{self._name}"')
+
+    def remove_book(self, title):
+        for book in self._books:
+            if book.title.lower() == title.lower():
+                self._books.remove(book)
+                print(f'книга "{book.title}" удалена')
+                return
+        print(f'книга "{title}" не найдена')
+
+    def show_all(self):
+        print(str(self))
+
+    def find_book(self, title):
+        for book in self._books:
+            if book.title.lower() == title.lower():
+                return book
+        return None
+
+    def show_available(self):
+        print("доступные книги:")
+        count = 0
+        for book in self._books:
+            if book.is_available():
+                print(str(book))
+                count += 1
+        if count == 0:
+            print("доступных книг нет")
+
+
+library = Library("Городская библиотека")
+library.add_book(Book("Мастер и Маргарита", "Булгаков", 1967))
+library.add_book(Book("1984", "Оруэлл", 1949))
+library.add_book(Book("Преступление и наказание", "Достоевский", 1866))
+library.add_book(Book("Гарри Поттер", "Роулинг", 1997))
+library.add_book(Book("Маленький принц", "Сент-Экзюпери", 1943))
+
+print()
+print(str(library))
+
+print()
+book = library.find_book("1984")
+if book is None:
+    print("книга не найдена")
+else:
+    print("книга найдена:")
+    print(str(book))
+
+print()
+book = library.find_book("1984")
+book.give_out()
+book.give_out()
+
+print()
+book.return_book()
+print("статус после возврата:")
+print(str(book))
+
+print()
+library.show_available()
+
+# Задание 2
+class Vehicle:
+    def __init__(self, brand, model, max_speed):
+        self.brand = brand
+        self.model = model
+        self.max_speed = max_speed
+        self._speed = 0
+
+    def __str__(self):
+        return f"марка: {self.brand}, модель: {self.model}, макс. скорость: {self.max_speed}, текущая скорость: {self._speed}"
+
+    def info(self):
+        print(str(self))
+
+    def accelerate(self, a):
+        if a <= 0:
+            print("скорость должна быть больше 0")
+            pass
+        else:
+            self._speed += a
+            if self._speed > self.max_speed:
+                self._speed = self.max_speed
+                print(f"скорость ограничена максимумом: {self._speed}")
+            else:
+                print(f"скорость увеличена до {self._speed}")
+
+    def stop(self):
+        self._speed = 0
+        print(f"{self.brand} {self.model} остановлен")
+
+
+class Car(Vehicle):
+    def __init__(self, brand, model, max_speed, doors, fuel):
+        super().__init__(brand, model, max_speed)
+        self.doors = doors
+        self.fuel = fuel
+
+    def __str__(self):
+        return super().__str__() + f", дверей: {self.doors}, топливо: {self.fuel}"
+
+    def ac_on(self):
+        print(f"кондиционер в {self.brand} {self.model} включён")
+
+
+class Motorcycle(Vehicle):
+    def __init__(self, brand, model, max_speed, sidecar):
+        super().__init__(brand, model, max_speed)
+        self.sidecar = sidecar
+
+    def __str__(self):
+        sidecar = "есть" if self.sidecar else "нет"
+        return super().__str__() + f", боковой прицеп: {sidecar}"
+
+    def maneuver(self):
+        print(f"{self.brand} {self.model} выполняет маневр")
+
+
+class Bicycle(Vehicle):
+    def __init__(self, brand, model, max_speed, gears):
+        super().__init__(brand, model, max_speed)
+        self.gears = gears
+        self._gear = 1
+
+    def __str__(self):
+        return super().__str__() + f", передач: {self.gears}, текущая передача: {self._gear}"
+
+    def shift_gear(self, gear):
+        if gear < 1 or gear > self.gears:
+            print(f"передачи {gear} нет")
+            pass
+        else:
+            self._gear = gear
+            print(f"передача переключена на {self._gear}")
+
+
+car = Car("Toyota", "Camry", 220, 4, "бензин")
+moto = Motorcycle("Yamaha", "MT-07", 180, False)
+bike = Bicycle("Stels", "Navigator", 40, 21)
+
+vehicles = [car, moto, bike]
+
+print("информация о транспорте:")
+for vehicle in vehicles:
+    vehicle.info()
+
+print()
+print("увеличиваем скорость:")
+car.accelerate(80)
+moto.accelerate(60)
+bike.accelerate(10)
+
+print()
+print("пробуем превысить максимум:")
+car.accelerate(500)
+moto.accelerate(500)
+bike.accelerate(500)
+
+print()
+print("особые методы:")
+car.ac_on()
+moto.maneuver()
+bike.shift_gear(5)
+bike.shift_gear(30)
+
+print()
+print("останавливаем весь транспорт:")
+for vehicle in vehicles:
+    vehicle.stop()
+
+print()
+print("информация после остановки:")
+for vehicle in vehicles:
+    vehicle.info()
