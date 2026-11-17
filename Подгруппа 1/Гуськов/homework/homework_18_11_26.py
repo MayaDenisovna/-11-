@@ -71,33 +71,14 @@ lib.add(Book("мастер и маргарита", "булгаков", 1967))
 lib.add(Book("отцы и дети", "тургенев", 1862))
 lib.add(Book("евгений онегин", "пушкин", 1833))
 
-print("--- весь каталог ---")
 lib.show_all()
-
-print("--- поиск книги ---")
 b = lib.find("мастер и маргарита")
-if b != None:
-    b.show()
-else:
-    print("не нашли")
-
-print("--- выдаем книгу ---")
+b.show()
 b.take()
-
-print("--- пробуем выдать повторно ---")
 b.take()
-
-print("--- возвращаем книгу ---")
 b.give_back()
-if b.is_free():
-    print("книга снова доступна")
-else:
-    print("книга все еще выдана")
-
-print("--- доступные книги ---")
+print(b.is_free())
 lib.show_free()
-
-print("--- удаляем книгу ---")
 lib.remove("отцы и дети")
 lib.show_all()
 
@@ -180,17 +161,14 @@ car = Car("лада", "веста", 180, 4, "бензин")
 moto = Motorcycle("урал", "имз", 120, True)
 bike = Bicycle("стелс", "навигатор", 40, 7)
 
-print("--- информация о транспорте ---")
 car.show()
 moto.show()
 bike.show()
 
-print("--- увеличиваем скорость ---")
 car.accelerate(60)
 moto.accelerate(50)
 bike.accelerate(10)
 
-print("--- пробуем больше максимума ---")
 car.accelerate(500)
 moto.accelerate(500)
 bike.accelerate(500)
@@ -199,13 +177,11 @@ car.show()
 moto.show()
 bike.show()
 
-print("--- особые методы ---")
 car.ac_on()
 moto.maneuver()
 bike.shift(5)
 bike.show()
 
-print("--- останавливаем весь транспорт ---")
 car.stop()
 moto.stop()
 bike.stop()
