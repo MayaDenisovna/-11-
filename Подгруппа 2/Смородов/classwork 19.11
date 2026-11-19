@@ -1,1 +1,101 @@
+# Задание 1
+class Notification:
+    def __init__(self, message):
+        self.message = message
 
+    def send(self):
+        pass
+
+
+class EmailNotification(Notification):
+    def __init__(self, message, email_address):
+        super().__init__(message)
+        self.email_address = email_address
+
+    def send(self):
+        print("Email отправлен на", self.email_address)
+        print("Текст:", self.message)
+
+
+class SMSNotification(Notification):
+    def __init__(self, message, phone_number):
+        super().__init__(message)
+        self.phone_number = phone_number
+
+    def send(self):
+        print("SMS отправлено на номер", self.phone_number)
+        print("Текст:", self.message)
+
+
+class PushNotification(Notification):
+    def __init__(self, message, device):
+        super().__init__(message)
+        self.device = device
+
+    def send(self):
+        print("Push отправлен на устройство", self.device)
+        print("Текст:", self.message)
+
+
+def send_all(notifications):
+    for n in notifications:
+        n.send()
+
+
+notifications = [
+    EmailNotification("Ваш заказ отправлен", "user@example.com"),
+    SMSNotification("Код подтверждения: 1234", "+7 900 123-45-67"),
+    PushNotification("У вас новое сообщение", "iPhone 15"),
+]
+
+send_all(notifications)
+
+# Задание 2
+class Character:
+    def __init__(self, name):
+        self.name = name
+        self.health = 100
+
+    def get_info(self):
+        print("Имя:", self.name, "| Здоровье:", self.health)
+
+    def take_damage(self, damage):
+        self.health = self.health - damage
+        if self.health <= 0:
+            print(self.name, "погиб")
+
+
+class Prisoner(Character):
+    def __init__(self, name, term):
+        super().__init__(name)
+        self.term = term
+
+    def act(self, d):
+        if d == "бунт":
+            print(self.name, "бунтует и получает урон")
+            self.take_damage(20)
+        else:
+            print(self.name, "ведёт себя спокойно")
+
+
+class Guard(Character):
+    def __init__(self, name, rank):
+        super().__init__(name)
+        self.rank = rank
+
+    def act(self, d):
+        if d == "наказание":
+            print(self.name, "наказывает заключённого")
+            prisoner.take_damage(30)
+        else:
+            print(self.name, "стоит на посту")
+
+
+prisoner = Prisoner("Иван", "5 лет")
+guard = Guard("Пётр", "сержант")
+
+prisoner.get_info()
+guard.get_info()
+prisoner.act("бунт")
+guard.act("наказание")
+prisoner.get_info()
